@@ -3,291 +3,427 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Prajnesh Gatty A | Resume</title>
-
+<title>Yashwanth Kumar D — Data Analyst & Operations Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-    background:#f4f6f9;
-    color:#333;
+  :root{
+    --bg: #12151a;
+    --panel: #1a1e25;
+    --panel-2: #20252d;
+    --line: #2b313b;
+    --amber: #e8a33d;
+    --amber-dim: #8a6327;
+    --teal: #4fd1c5;
+    --text: #eef1f5;
+    --muted: #8b93a1;
+    --mono: 'JetBrains Mono', monospace;
+    --disp: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
     line-height:1.6;
-}
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
 
-.container{
-    max-width:1000px;
-    margin:40px auto;
-    background:white;
-    box-shadow:0 0 15px rgba(0,0,0,.1);
-}
+  /* background grid texture */
+  .grain{
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+  }
 
-header{
-    background:#0d47a1;
-    color:white;
-    text-align:center;
-    padding:40px;
-}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;position:relative;z-index:1;}
 
-header h1{
-    font-size:40px;
-}
+  /* NAV */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(18,21,26,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1120px;margin:0 auto;}
+  .logo{font-family:var(--mono);font-size:15px;letter-spacing:0.5px;color:var(--text);display:flex;align-items:center;gap:8px;}
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);}
+  .navlinks{display:flex;gap:36px;font-family:var(--mono);font-size:13px;color:var(--muted);}
+  .navlinks a{transition:color .2s;position:relative;}
+  .navlinks a:hover{color:var(--amber);}
+  .nav-cta{font-family:var(--mono);font-size:13px;border:1px solid var(--amber-dim);color:var(--amber);padding:8px 16px;border-radius:2px;transition:all .2s;}
+  .nav-cta:hover{background:var(--amber);color:#12151a;}
+  .burger{display:none;}
 
-header p{
-    margin-top:10px;
-}
+  section{position:relative;z-index:1;}
 
-header a{
-    color:white;
-    text-decoration:none;
-}
+  /* HERO */
+  .hero{
+    padding:160px 0 100px;
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:center;
+  }
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:2px;text-transform:uppercase;
+    display:flex;align-items:center;gap:10px;margin-bottom:20px;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--amber);}
+  h1.name{
+    font-family:var(--disp);font-weight:700;font-size:clamp(38px,5.5vw,64px);line-height:1.05;
+    letter-spacing:-1px;margin-bottom:18px;
+  }
+  h1.name .last{color:var(--muted);}
+  .role{font-family:var(--disp);font-size:20px;color:var(--amber);font-weight:500;margin-bottom:20px;}
+  .hero-desc{color:var(--muted);font-size:15.5px;max-width:520px;margin-bottom:32px;}
+  .btn-row{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:13px;padding:14px 26px;border-radius:2px;
+    display:inline-flex;align-items:center;gap:8px;transition:all .2s;
+  }
+  .btn-primary{background:var(--amber);color:#14171c;font-weight:600;}
+  .btn-primary:hover{background:#f3b559;transform:translateY(-2px);}
+  .btn-ghost{border:1px solid var(--line);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--amber);color:var(--amber);}
 
-.content{
-    display:grid;
-    grid-template-columns:300px auto;
-}
+  /* dashboard card - signature element */
+  .dash-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:22px;position:relative;overflow:hidden;
+  }
+  .dash-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg, transparent, var(--amber), transparent);
+  }
+  .dash-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  .dash-title{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+  .dash-live{font-family:var(--mono);font-size:10px;color:var(--teal);display:flex;align-items:center;gap:6px;}
+  .dash-live span{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+  .dash-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+  .stat{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:14px;}
+  .stat .num{font-family:var(--mono);font-size:24px;font-weight:600;color:var(--text);}
+  .stat .lab{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:4px;letter-spacing:0.5px;}
+  .stat .num.amber{color:var(--amber);}
+  .stat .num.teal{color:var(--teal);}
+  .barchart{display:flex;align-items:flex-end;gap:6px;height:70px;padding:0 2px;}
+  .barchart .bar{flex:1;background:linear-gradient(180deg, var(--amber), var(--amber-dim));border-radius:3px 3px 0 0;opacity:0.85;}
+  .barchart .bar:nth-child(6){background:linear-gradient(180deg, var(--teal), #2b7a72);}
 
-.left{
-    background:#f7f9fc;
-    padding:30px;
-}
+  /* SECTION HEAD */
+  .sec-head{margin-bottom:48px;}
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:2px;margin-bottom:10px;}
+  .sec-title{font-family:var(--disp);font-size:clamp(26px,3.5vw,36px);font-weight:600;}
+  .sec-sub{color:var(--muted);font-size:14.5px;margin-top:10px;max-width:560px;}
 
-.right{
-    padding:30px;
-}
+  /* ABOUT */
+  .about{padding:100px 0;border-top:1px solid var(--line);}
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;}
+  .about-text p{color:var(--muted);font-size:15.5px;margin-bottom:16px;}
+  .about-text strong{color:var(--text);font-weight:600;}
+  .fact-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line);}
+  .fact{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);font-size:14px;}
+  .fact .k{color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:0.5px;}
+  .fact .v{color:var(--text);font-weight:500;text-align:right;}
 
-.section{
-    margin-bottom:30px;
-}
+  /* SKILLS */
+  .skills{padding:100px 0;border-top:1px solid var(--line);}
+  .skill-group{margin-bottom:44px;}
+  .skill-group-label{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--line);}
+  .skill-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(140px,1fr));gap:14px;}
+  .skill-tile{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 16px;
+    transition:all .25s; cursor:default;
+  }
+  .skill-tile:hover{transform:translateY(-4px);border-color:var(--amber-dim);box-shadow:0 12px 24px -12px rgba(0,0,0,0.5);}
+  .skill-badge{
+    width:38px;height:38px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-weight:700;font-size:12px;margin-bottom:14px;color:#14171c;
+  }
+  .skill-name{font-size:13.5px;font-weight:500;color:var(--text);}
 
-.section h2{
-    color:#0d47a1;
-    border-bottom:2px solid #0d47a1;
-    margin-bottom:15px;
-    padding-bottom:5px;
-}
+  /* EXPERIENCE */
+  .experience{padding:100px 0;border-top:1px solid var(--line);}
+  .timeline{position:relative;padding-left:32px;}
+  .timeline::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--line);}
+  .tl-item{position:relative;padding-bottom:44px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-dot{position:absolute;left:-32px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--amber);}
+  .tl-date{font-family:var(--mono);font-size:12px;color:var(--amber);margin-bottom:6px;letter-spacing:0.5px;}
+  .tl-role{font-family:var(--disp);font-size:19px;font-weight:600;margin-bottom:2px;}
+  .tl-org{color:var(--muted);font-size:13.5px;margin-bottom:14px;font-style:italic;}
+  .tl-desc{color:var(--muted);font-size:14.5px;margin-bottom:14px;max-width:640px;}
+  .tl-bullets{list-style:none;display:grid;gap:8px;max-width:640px;}
+  .tl-bullets li{position:relative;padding-left:18px;color:var(--text);font-size:14px;opacity:0.9;}
+  .tl-bullets li::before{content:"›";position:absolute;left:0;color:var(--amber);font-family:var(--mono);}
 
-ul{
-    margin-left:20px;
-}
+  /* EDUCATION */
+  .education{padding:100px 0;border-top:1px solid var(--line);}
+  .edu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .edu-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px;}
+  .edu-date{font-family:var(--mono);font-size:11.5px;color:var(--teal);margin-bottom:10px;}
+  .edu-deg{font-family:var(--disp);font-size:17px;font-weight:600;margin-bottom:4px;}
+  .edu-org{color:var(--muted);font-size:13px;margin-bottom:10px;}
+  .edu-note{color:var(--muted);font-size:13px;line-height:1.6;}
+  .edu-note b{color:var(--text);}
 
-.skill{
-    display:inline-block;
-    background:#0d47a1;
-    color:white;
-    padding:8px 14px;
-    margin:5px;
-    border-radius:20px;
-    font-size:14px;
-}
+  /* LANG + EXTRA */
+  .extras{padding:0 0 100px;}
+  .extras-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .extras-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;}
+  .extras-card h4{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;}
+  .pill-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .pill{font-family:var(--mono);font-size:12.5px;background:var(--panel-2);border:1px solid var(--line);padding:8px 14px;border-radius:20px;color:var(--text);}
 
-.project{
-    margin-bottom:20px;
-}
+  /* CONTACT */
+  .contact{padding:100px 0 60px;border-top:1px solid var(--line);text-align:center;}
+  .contact .sec-head{text-align:center;margin-left:auto;margin-right:auto;}
+  .contact .eyebrow{justify-content:center;}
+  .contact .eyebrow::before{display:none;}
+  .contact-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:36px;}
+  .contact-links a{
+    font-family:var(--mono);font-size:13.5px;border:1px solid var(--line);padding:16px 26px;border-radius:8px;
+    display:flex;flex-direction:column;gap:4px;min-width:200px;transition:all .2s;
+  }
+  .contact-links a:hover{border-color:var(--amber);background:var(--panel);}
+  .contact-links .clabel{color:var(--muted);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;}
+  .contact-links .cval{color:var(--text);font-weight:500;}
+  footer{text-align:center;padding:32px 0;color:var(--muted);font-family:var(--mono);font-size:12px;border-top:1px solid var(--line);}
+  footer span{color:var(--amber);}
 
-.project h3{
-    color:#1565c0;
-}
-
-footer{
-    text-align:center;
-    padding:20px;
-    background:#0d47a1;
-    color:white;
-}
-
-@media(max-width:768px){
-
-.content{
-grid-template-columns:1fr;
-}
-
-header h1{
-font-size:30px;
-}
-
-}
+  @media(max-width:860px){
+    .navlinks{display:none;}
+    .hero{grid-template-columns:1fr;padding-top:130px;}
+    .about-grid{grid-template-columns:1fr;gap:32px;}
+    .edu-grid{grid-template-columns:1fr;}
+    .extras-grid{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
 </style>
-
 </head>
-
 <body>
-
-<div class="container">
+<div class="grain"></div>
 
 <header>
-
-<h1>Prajnesh Gatty B </h1>
-
-<p>
-📍 Karnataka, India |
-📧 youremail@example.com |
-📱 +91-XXXXXXXXXX
-</p>
-
-<p>
-<a href="https://github.com/yourusername">GitHub</a> |
-<a href="https://linkedin.com/in/yourprofile">LinkedIn</a> |
-<a href="https://yourportfolio.com">Portfolio</a>
-</p>
-
+  <nav>
+    <div class="logo"><span class="dot"></span>YASHWANTH.KD</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="#contact">Get in touch</a>
+  </nav>
 </header>
 
-<div class="content">
+<div class="wrap">
 
-<div class="left">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div>
+      <div class="eyebrow">Data Analyst · MIS &amp; Operations</div>
+      <h1 class="name">Yashwanth<br><span class="last">Kumar D</span></h1>
+      <div class="role">Turning raw data into decisions that hold up.</div>
+      <p class="hero-desc">2.7 years leading operations and building the reports that leadership actually reads — Advanced Excel, Power BI, and SLA-driven team management out of Mangaluru, India.</p>
+      <div class="btn-row">
+        <a href="#contact" class="btn btn-primary">Start a conversation →</a>
+        <a href="#experience" class="btn btn-ghost">View experience</a>
+      </div>
+    </div>
 
-<div class="section">
+    <div class="dash-card">
+      <div class="dash-head">
+        <div class="dash-title">Performance Snapshot</div>
+        <div class="dash-live"><span></span>Live report</div>
+      </div>
+      <div class="dash-stats">
+        <div class="stat"><div class="num amber">2.7<small style="font-size:13px;">yrs</small></div><div class="lab">EXPERIENCE</div></div>
+        <div class="stat"><div class="num teal">SLA</div><div class="lab">COMPLIANCE FOCUS</div></div>
+        <div class="stat"><div class="num">MIS</div><div class="lab">DAILY / WKLY / MTHLY</div></div>
+        <div class="stat"><div class="num">DAX</div><div class="lab">POWER BI MODELING</div></div>
+      </div>
+      <div class="barchart">
+        <div class="bar" style="height:40%"></div>
+        <div class="bar" style="height:62%"></div>
+        <div class="bar" style="height:50%"></div>
+        <div class="bar" style="height:78%"></div>
+        <div class="bar" style="height:65%"></div>
+        <div class="bar" style="height:90%"></div>
+        <div class="bar" style="height:70%"></div>
+        <div class="bar" style="height:82%"></div>
+      </div>
+    </div>
+  </section>
 
-<h2>Profile</h2>
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="sec-head">
+      <div class="sec-num">01 / ABOUT</div>
+      <div class="sec-title">Detail-oriented, dashboard-minded.</div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>detail-oriented professional with 2.7 years of experience</strong> in operations management, MIS reporting, and data analysis. My core strength is turning large, messy datasets into <strong>actionable insight</strong> — through Advanced Excel, Power BI dashboards, and consistent performance tracking.</p>
+        <p>My time as a <strong>Team Leader</strong> sharpened my analytical thinking, problem-solving, and stakeholder management. I'm eager to bring that reporting expertise and business understanding to a dedicated <strong>Data Analyst</strong> role.</p>
+      </div>
+      <div class="fact-list">
+        <div class="fact"><div class="k">LOCATION</div><div class="v">Mangaluru, Karnataka, India</div></div>
+        <div class="fact"><div class="k">CURRENT ROLE</div><div class="v">Team Leader — Cogent E Services</div></div>
+        <div class="fact"><div class="k">FOCUS</div><div class="v">MIS Reporting &amp; Data Analysis</div></div>
+        <div class="fact"><div class="k">LANGUAGES</div><div class="v">English · Kannada · Hindi</div></div>
+        <div class="fact"><div class="k">STUDYING</div><div class="v">BCA — Amity University Online</div></div>
+      </div>
+    </div>
+  </section>
 
-<p>
+  <!-- SKILLS -->
+  <section class="skills" id="skills">
+    <div class="sec-head">
+      <div class="sec-num">02 / SKILLS</div>
+      <div class="sec-title">The toolkit behind the reports.</div>
+      <div class="sec-sub">From spreadsheet modeling to enterprise systems, plus the programming foundation that makes automation possible.</div>
+    </div>
 
-Motivated Computer Science student with strong knowledge of Web Development, Cloud Computing, C++, Python, Java, and Azure. Passionate about building practical projects and continuously learning modern technologies.
+    <div class="skill-group">
+      <div class="skill-group-label">Data &amp; Business Intelligence</div>
+      <div class="skill-grid">
+        <div class="skill-tile"><div class="skill-badge" style="background:var(--amber);">XLS</div><div class="skill-name">Advanced Excel</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#f2c94c;">PBI</div><div class="skill-name">Power BI</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:var(--teal);">DAX</div><div class="skill-name">DAX</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#9b8cf2;">MIS</div><div class="skill-name">MIS Reporting</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#f28c6c;">SAP</div><div class="skill-name">SAP</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#6cc2f2;">ERP</div><div class="skill-name">ERP Systems</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#e8a33d;">SCA</div><div class="skill-name">Supply Chain Analytics</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#4fd1c5;">BI</div><div class="skill-name">Business Intelligence</div></div>
+      </div>
+    </div>
 
-</p>
+    <div class="skill-group">
+      <div class="skill-group-label">Programming Languages</div>
+      <div class="skill-grid">
+        <div class="skill-tile"><div class="skill-badge" style="background:#f2994a;">JV</div><div class="skill-name">Java</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#8b93a1;">C</div><div class="skill-name">C</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#5b8ef2;">C++</div><div class="skill-name">C++</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#e8a33d;">&lt;/&gt;</div><div class="skill-name">HTML</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#f2c94c;">JS</div><div class="skill-name">JavaScript</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#9b8cf2;">PHP</div><div class="skill-name">PHP</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#4fd1c5;">CSS</div><div class="skill-name">CSS</div></div>
+      </div>
+    </div>
 
+    <div class="skill-group">
+      <div class="skill-group-label">Software &amp; Build Tools</div>
+      <div class="skill-grid">
+        <div class="skill-tile"><div class="skill-badge" style="background:#dedede;">C#</div><div class="skill-name">Unity Engine</div></div>
+        <div class="skill-tile"><div class="skill-badge" style="background:#7fdb8a;">AND</div><div class="skill-name">Android Studio</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="experience" id="experience">
+    <div class="sec-head">
+      <div class="sec-num">03 / EXPERIENCE</div>
+      <div class="sec-title">Where the reporting gets used.</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">11/2023 — PRESENT · MANGALURU, INDIA</div>
+        <div class="tl-role">Team Leader</div>
+        <div class="tl-org">Cogent E Services</div>
+        <p class="tl-desc">Managing inbound customer service operations, workforce coordination, and real-time performance monitoring — leading teams to hit operational targets while keeping SLA compliance and process improvement front and center.</p>
+        <ul class="tl-bullets">
+          <li>Led and supervised a team of customer service agents against productivity and quality targets.</li>
+          <li>Prepared and maintained daily, weekly, and monthly MIS reports for performance tracking.</li>
+          <li>Handled agent escalations and resolved operational issues to improve team efficiency.</li>
+          <li>Analyzed performance data to generate actionable insights for operational effectiveness.</li>
+          <li>Ran coaching sessions and performance reviews to drive employee development.</li>
+          <li>Ensured compliance with organizational policy, client requirements, and SLAs.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="education" id="education">
+    <div class="sec-head">
+      <div class="sec-num">04 / EDUCATION</div>
+      <div class="sec-title">Built on a games &amp; systems foundation.</div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-date">06/2023 — PRESENT</div>
+        <div class="edu-deg">Bachelor of Computer Applications</div>
+        <div class="edu-org">Amity University Online</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-date">02/2023 · CAMBRIDGE, FINLAND</div>
+        <div class="edu-deg">Introduction to Video Game Creation (IVGC)</div>
+        <div class="edu-org">XAMK South-Eastern Finland University of Applied Sciences</div>
+        <div class="edu-note">ECTS-credited module — 38 ECTS in video game development using <b>Unity Engine / C++</b>. Led by Dr Jan Storgård, Director of CADGI.</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-date">2017 — 11/2020 · MANGALURU, INDIA</div>
+        <div class="edu-deg">Computer Science &amp; Engineering</div>
+        <div class="edu-org">P A Polytechnic</div>
+        <div class="edu-note">Covered basic Java, C++, HTML, CSS. <b>Final-year project lead</b> — built a mobile application using Android Studio &amp; Firebase.</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-date">06/2015 — 03/2017 · MANGALURU, INDIA</div>
+        <div class="edu-deg">Computer Science — PCMC</div>
+        <div class="edu-org">Dr. N.S.A.M</div>
+        <div class="edu-note">Foundational coursework in basic web development and C++.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTRAS -->
+  <section class="extras">
+    <div class="extras-grid">
+      <div class="extras-card">
+        <h4>Core Strengths</h4>
+        <div class="pill-row">
+          <div class="pill">Creative &amp; innovative thinker</div>
+          <div class="pill">Team management &amp; leadership</div>
+          <div class="pill">Strategic problem-solving</div>
+          <div class="pill">AI-assisted workflows</div>
+        </div>
+      </div>
+      <div class="extras-card">
+        <h4>Languages</h4>
+        <div class="pill-row">
+          <div class="pill">English</div>
+          <div class="pill">Kannada</div>
+          <div class="pill">Hindi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="sec-head">
+      <div class="eyebrow">05 / CONTACT</div>
+      <div class="sec-title">Let's put your data to work.</div>
+      <div class="sec-sub" style="margin-left:auto;margin-right:auto;">Open to Data Analyst opportunities in and around Mangaluru, or remote.</div>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:yashwanthgatty@gmail.com"><span class="clabel">Email</span><span class="cval">yashwanthgatty@gmail.com</span></a>
+      <a href="tel:+917975111042"><span class="clabel">Phone</span><span class="cval">+91 79751 11042</span></a>
+      <a href="#"><span class="clabel">Location</span><span class="cval">Kotekar, D.K, Karnataka 575022</span></a>
+    </div>
+  </section>
+
+  <footer>Designed &amp; built for <span>Yashwanth Kumar D</span> — © 2026</footer>
 </div>
-
-<div class="section">
-
-<h2>Skills</h2>
-
-<div class="skill">HTML</div>
-<div class="skill">CSS</div>
-<div class="skill">JavaScript</div>
-<div class="skill">Python</div>
-<div class="skill">C++</div>
-<div class="skill">Java</div>
-<div class="skill">Git</div>
-<div class="skill">GitHub</div>
-<div class="skill">Azure</div>
-<div class="skill">SQL</div>
-
-</div>
-
-<div class="section">
-
-<h2>Education</h2>
-
-<p>
-
-<b>Bachelor of Engineering</b><br>
-Computer Science & Engineering<br>
-(Expected Graduation: 2027)
-
-</p>
-
-</div>
-
-<div class="section">
-
-<h2>Certifications</h2>
-
-<ul>
-<li>Microsoft Azure Fundamentals (AZ-900)</li>
-<li>Preparing for AZ-104</li>
-<li>Microsoft Virtual Training Day</li>
-</ul>
-
-</div>
-
-</div>
-
-<div class="right">
-
-<div class="section">
-
-<h2>Academic Projects</h2>
-
-<div class="project">
-
-<h3>Arcane2D Game Engine</h3>
-
-<p>
-
-Developed a 2D game engine featuring sprite rendering, animation system, scene management, collision detection, asset management, and event handling. Focused on modular architecture and optimized rendering performance.
-
-</p>
-
-</div>
-
-<div class="project">
-
-<h3>Personal Portfolio Website</h3>
-
-<p>
-
-Designed and developed a responsive portfolio website using HTML, CSS, and JavaScript to showcase projects, skills, certifications, and resume.
-
-</p>
-
-</div>
-
-<div class="project">
-
-<h3>GitHub Resume Website</h3>
-
-<p>
-
-Created a responsive online resume using only HTML and CSS, hosted freely with GitHub Pages for professional online presence.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="section">
-
-<h2>Achievements</h2>
-
-<ul>
-
-<li>Participated in Microsoft Virtual Training Days.</li>
-
-<li>Hands-on experience with Azure cloud services.</li>
-
-<li>Strong understanding of Data Structures and Algorithms.</li>
-
-<li>Built multiple academic and web development projects.</li>
-
-</ul>
-
-</div>
-
-<div class="section">
-
-<h2>Languages</h2>
-
-<ul>
-
-<li>English</li>
-
-<li>Hindi</li>
-
-<li>Kannada</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<footer>
-
-© 2026 Prajnesh Gatty | Resume Website
-
-</footer>
-
-</div>
-
 </body>
 </html>
