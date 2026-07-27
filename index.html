@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yashwanth Kumar D — Data Analyst & Operations Lead</title>
+<title>Yashwanth Kumar D — Web Developer</title>
+<meta name="description" content="Yashwanth Kumar D — Web Developer building with HTML, CSS, JavaScript and PHP, backed by real-world data & operations experience.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -29,10 +30,20 @@
     font-family:var(--body);
     line-height:1.6;
     overflow-x:hidden;
+    transition:background .3s ease, color .3s ease;
+  }
+  body.light{
+    --bg:#f7f5f0;
+    --panel:#ffffff;
+    --panel-2:#f0ece3;
+    --line:#e2dcce;
+    --text:#1c1f24;
+    --muted:#6b7280;
+    --amber-dim:#e0b169;
   }
   a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;}
 
-  /* background grid texture */
   .grain{
     position:fixed;inset:0;pointer-events:none;z-index:0;
     background-image:
@@ -40,6 +51,11 @@
       linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
     background-size:48px 48px;
     mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+  }
+  body.light .grain{
+    background-image:
+      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
   }
 
   .wrap{max-width:1120px;margin:0 auto;padding:0 32px;position:relative;z-index:1;}
@@ -50,18 +66,49 @@
     background:rgba(18,21,26,0.85);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
+    transition:background .3s ease;
   }
+  body.light header{background:rgba(247,245,240,0.85);}
   nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1120px;margin:0 auto;}
   .logo{font-family:var(--mono);font-size:15px;letter-spacing:0.5px;color:var(--text);display:flex;align-items:center;gap:8px;}
   .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);}
-  .navlinks{display:flex;gap:36px;font-family:var(--mono);font-size:13px;color:var(--muted);}
-  .navlinks a{transition:color .2s;position:relative;}
-  .navlinks a:hover{color:var(--amber);}
+  .navlinks{display:flex;gap:32px;font-family:var(--mono);font-size:13px;color:var(--muted);}
+  .navlinks a{transition:color .2s;position:relative;padding:4px 0;}
+  .navlinks a:hover, .navlinks a.active{color:var(--amber);}
+  .navlinks a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--amber);border-radius:2px;}
+  .nav-right{display:flex;align-items:center;gap:14px;}
   .nav-cta{font-family:var(--mono);font-size:13px;border:1px solid var(--amber-dim);color:var(--amber);padding:8px 16px;border-radius:2px;transition:all .2s;}
   .nav-cta:hover{background:var(--amber);color:#12151a;}
-  .burger{display:none;}
+  .theme-toggle{
+    width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);
+    color:var(--text);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;
+  }
+  .theme-toggle:hover{border-color:var(--amber);}
+  .burger{
+    display:none;flex-direction:column;gap:5px;background:none;border:none;padding:6px;
+  }
+  .burger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .25s ease;}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .burger.open span:nth-child(2){opacity:0;}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    display:none;
+    max-height:0;overflow:hidden;
+    background:var(--panel);border-bottom:1px solid var(--line);
+    transition:max-height .3s ease;
+  }
+  .mobile-menu.open{max-height:340px;}
+  .mobile-menu a{
+    display:block;padding:14px 32px;font-family:var(--mono);font-size:14px;color:var(--muted);
+    border-top:1px solid var(--line);
+  }
+  .mobile-menu a.active{color:var(--amber);}
 
   section{position:relative;z-index:1;}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
 
   /* HERO */
   .hero{
@@ -78,19 +125,20 @@
     letter-spacing:-1px;margin-bottom:18px;
   }
   h1.name .last{color:var(--muted);}
-  .role{font-family:var(--disp);font-size:20px;color:var(--amber);font-weight:500;margin-bottom:20px;}
+  .role{font-family:var(--disp);font-size:20px;color:var(--amber);font-weight:500;margin-bottom:20px;min-height:28px;}
+  .role .cursor{display:inline-block;width:2px;background:var(--amber);margin-left:2px;animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
   .hero-desc{color:var(--muted);font-size:15.5px;max-width:520px;margin-bottom:32px;}
   .btn-row{display:flex;gap:16px;flex-wrap:wrap;}
   .btn{
     font-family:var(--mono);font-size:13px;padding:14px 26px;border-radius:2px;
-    display:inline-flex;align-items:center;gap:8px;transition:all .2s;
+    display:inline-flex;align-items:center;gap:8px;transition:all .2s;border:none;
   }
   .btn-primary{background:var(--amber);color:#14171c;font-weight:600;}
   .btn-primary:hover{background:#f3b559;transform:translateY(-2px);}
-  .btn-ghost{border:1px solid var(--line);color:var(--text);}
+  .btn-ghost{border:1px solid var(--line);color:var(--text);background:transparent;}
   .btn-ghost:hover{border-color:var(--amber);color:var(--amber);}
 
-  /* dashboard card - signature element */
   .dash-card{
     background:var(--panel);border:1px solid var(--line);border-radius:8px;
     padding:22px;position:relative;overflow:hidden;
@@ -111,7 +159,8 @@
   .stat .num.amber{color:var(--amber);}
   .stat .num.teal{color:var(--teal);}
   .barchart{display:flex;align-items:flex-end;gap:6px;height:70px;padding:0 2px;}
-  .barchart .bar{flex:1;background:linear-gradient(180deg, var(--amber), var(--amber-dim));border-radius:3px 3px 0 0;opacity:0.85;}
+  .barchart .bar{flex:1;background:linear-gradient(180deg, var(--amber), var(--amber-dim));border-radius:3px 3px 0 0;opacity:0.85;transform:scaleY(0);transform-origin:bottom;transition:transform .8s ease;}
+  .barchart .bar.grow{transform:scaleY(1);}
   .barchart .bar:nth-child(6){background:linear-gradient(180deg, var(--teal), #2b7a72);}
 
   /* SECTION HEAD */
@@ -126,15 +175,15 @@
   .about-text p{color:var(--muted);font-size:15.5px;margin-bottom:16px;}
   .about-text strong{color:var(--text);font-weight:600;}
   .fact-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line);}
-  .fact{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);font-size:14px;}
-  .fact .k{color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:0.5px;}
+  .fact{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);font-size:14px;gap:16px;}
+  .fact .k{color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:0.5px;white-space:nowrap;}
   .fact .v{color:var(--text);font-weight:500;text-align:right;}
 
   /* SKILLS */
   .skills{padding:100px 0;border-top:1px solid var(--line);}
   .skill-group{margin-bottom:44px;}
   .skill-group-label{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--line);}
-  .skill-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(140px,1fr));gap:14px;}
+  .skill-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(150px,1fr));gap:14px;}
   .skill-tile{
     background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 16px;
     transition:all .25s; cursor:default;
@@ -144,7 +193,33 @@
     width:38px;height:38px;border-radius:6px;display:flex;align-items:center;justify-content:center;
     font-family:var(--mono);font-weight:700;font-size:12px;margin-bottom:14px;color:#14171c;
   }
-  .skill-name{font-size:13.5px;font-weight:500;color:var(--text);}
+  .skill-name{font-size:13.5px;font-weight:500;color:var(--text);margin-bottom:10px;}
+  .skill-bar-track{height:4px;border-radius:2px;background:var(--panel-2);overflow:hidden;}
+  .skill-bar-fill{height:100%;width:0;border-radius:2px;background:linear-gradient(90deg, var(--amber-dim), var(--amber));transition:width 1s ease;}
+
+  /* PROJECTS */
+  .projects{padding:100px 0;border-top:1px solid var(--line);}
+  .filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;}
+  .filter-btn{
+    font-family:var(--mono);font-size:12.5px;padding:9px 18px;border-radius:20px;border:1px solid var(--line);
+    background:transparent;color:var(--muted);transition:all .2s;
+  }
+  .filter-btn:hover{border-color:var(--amber-dim);color:var(--text);}
+  .filter-btn.active{background:var(--amber);color:#14171c;border-color:var(--amber);font-weight:600;}
+  .project-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(260px,1fr));gap:20px;}
+  .project-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px;
+    display:flex;flex-direction:column;gap:12px;transition:all .3s ease;
+  }
+  .project-card.hide{display:none;}
+  .project-card:hover{border-color:var(--amber-dim);transform:translateY(-3px);}
+  .project-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .project-title{font-family:var(--disp);font-size:17px;font-weight:600;}
+  .project-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.5px;text-transform:uppercase;color:var(--teal);border:1px solid var(--teal);padding:3px 8px;border-radius:12px;white-space:nowrap;}
+  .project-desc{color:var(--muted);font-size:13.5px;flex:1;}
+  .project-stack{display:flex;flex-wrap:wrap;gap:8px;}
+  .project-stack span{font-family:var(--mono);font-size:11px;background:var(--panel-2);border:1px solid var(--line);padding:5px 10px;border-radius:4px;color:var(--text);}
+  .project-note{font-family:var(--mono);font-size:11px;color:var(--amber);margin-top:2px;}
 
   /* EXPERIENCE */
   .experience{padding:100px 0;border-top:1px solid var(--line);}
@@ -180,30 +255,54 @@
   .pill{font-family:var(--mono);font-size:12.5px;background:var(--panel-2);border:1px solid var(--line);padding:8px 14px;border-radius:20px;color:var(--text);}
 
   /* CONTACT */
-  .contact{padding:100px 0 60px;border-top:1px solid var(--line);text-align:center;}
+  .contact{padding:100px 0 60px;border-top:1px solid var(--line);}
   .contact .sec-head{text-align:center;margin-left:auto;margin-right:auto;}
   .contact .eyebrow{justify-content:center;}
   .contact .eyebrow::before{display:none;}
-  .contact-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:36px;}
+  .contact-body{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:36px;align-items:start;}
+  .contact-links{display:flex;flex-direction:column;gap:12px;}
   .contact-links a{
-    font-family:var(--mono);font-size:13.5px;border:1px solid var(--line);padding:16px 26px;border-radius:8px;
-    display:flex;flex-direction:column;gap:4px;min-width:200px;transition:all .2s;
+    font-family:var(--mono);font-size:13.5px;border:1px solid var(--line);padding:16px 20px;border-radius:8px;
+    display:flex;flex-direction:column;gap:4px;transition:all .2s;
   }
   .contact-links a:hover{border-color:var(--amber);background:var(--panel);}
   .contact-links .clabel{color:var(--muted);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;}
   .contact-links .cval{color:var(--text);font-weight:500;}
+  .contact-form{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px;text-align:left;display:flex;flex-direction:column;gap:14px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field label{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;}
+  .field input, .field textarea{
+    background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:12px 14px;color:var(--text);
+    font-family:var(--body);font-size:14px;resize:vertical;
+  }
+  .field input:focus, .field textarea:focus{outline:2px solid var(--amber);outline-offset:1px;}
+  .field.error input, .field.error textarea{outline:1px solid #e05c5c;}
+  .field-error{font-family:var(--mono);font-size:11px;color:#e07a7a;min-height:14px;}
+  .form-status{font-family:var(--mono);font-size:12.5px;color:var(--teal);min-height:16px;}
   footer{text-align:center;padding:32px 0;color:var(--muted);font-family:var(--mono);font-size:12px;border-top:1px solid var(--line);}
   footer span{color:var(--amber);}
 
+  /* BACK TO TOP */
+  .to-top{
+    position:fixed;bottom:26px;right:26px;width:44px;height:44px;border-radius:50%;
+    background:var(--amber);color:#14171c;border:none;font-size:16px;display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;transform:translateY(10px);transition:all .25s ease;z-index:40;box-shadow:0 8px 20px -8px rgba(0,0,0,0.5);
+  }
+  .to-top.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+
   @media(max-width:860px){
     .navlinks{display:none;}
+    .burger{display:flex;}
+    .mobile-menu{display:block;}
     .hero{grid-template-columns:1fr;padding-top:130px;}
     .about-grid{grid-template-columns:1fr;gap:32px;}
     .edu-grid{grid-template-columns:1fr;}
     .extras-grid{grid-template-columns:1fr;}
+    .contact-body{grid-template-columns:1fr;}
   }
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important;transition:none !important;}
+    .reveal{opacity:1;transform:none;}
   }
 </style>
 </head>
@@ -213,15 +312,30 @@
 <header>
   <nav>
     <div class="logo"><span class="dot"></span>YASHWANTH Kumar D</div>
-    <div class="navlinks">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
+    <div class="navlinks" id="navlinks">
+      <a href="#about" data-nav>About</a>
+      <a href="#skills" data-nav>Skills</a>
+      <a href="#projects" data-nav>Projects</a>
+      <a href="#experience" data-nav>Experience</a>
+      <a href="#education" data-nav>Education</a>
+      <a href="#contact" data-nav>Contact</a>
     </div>
-    <a class="nav-cta" href="#contact">Get in touch</a>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">🌙</button>
+      <a class="nav-cta" href="#contact">Get in touch</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" data-nav>About</a>
+    <a href="#skills" data-nav>Skills</a>
+    <a href="#projects" data-nav>Projects</a>
+    <a href="#experience" data-nav>Experience</a>
+    <a href="#education" data-nav>Education</a>
+    <a href="#contact" data-nav>Contact</a>
+  </div>
 </header>
 
 <div class="wrap">
@@ -229,28 +343,28 @@
   <!-- HERO -->
   <section class="hero" id="top">
     <div>
-      <div class="eyebrow">Data Analyst · MIS &amp; Operations</div>
+      <div class="eyebrow">Web Developer · HTML / CSS / JS / PHP</div>
       <h1 class="name">Yashwanth<br><span class="last">Kumar D</span></h1>
-      <div class="role">Turning raw data into decisions that hold up.</div>
-      <p class="hero-desc">2.7 years leading operations and building the reports that leadership actually reads — Advanced Excel, Power BI, and SLA-driven team management out of Mangaluru, India.</p>
+      <div class="role" id="typedRole"><span id="typedText"></span><span class="cursor">&nbsp;</span></div>
+      <p class="hero-desc">I build clean, responsive interfaces with HTML, CSS and JavaScript — and back it with 2.7 years of real operations and data experience, so I know how to build things people actually use, not just things that look good in a demo.</p>
       <div class="btn-row">
-        <a href="#contact" class="btn btn-primary">Start a conversation →</a>
-        <a href="#experience" class="btn btn-ghost">View experience</a>
+        <a href="#projects" class="btn btn-primary">See my work →</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
       </div>
     </div>
 
     <div class="dash-card">
       <div class="dash-head">
-        <div class="dash-title">Performance Snapshot</div>
-        <div class="dash-live"><span></span>Live report</div>
+        <div class="dash-title">Snapshot</div>
+        <div class="dash-live"><span></span>This page is live JS</div>
       </div>
       <div class="dash-stats">
-        <div class="stat"><div class="num amber">2.7<small style="font-size:13px;">yrs</small></div><div class="lab">EXPERIENCE</div></div>
-        <div class="stat"><div class="num teal">SLA</div><div class="lab">COMPLIANCE FOCUS</div></div>
-        <div class="stat"><div class="num">MIS</div><div class="lab">DAILY / WKLY / MTHLY</div></div>
-        <div class="stat"><div class="num">DAX</div><div class="lab">POWER BI MODELING</div></div>
+        <div class="stat"><div class="num amber" data-count="6">0</div><div class="lab">LANGUAGES / TOOLS</div></div>
+        <div class="stat"><div class="num teal" data-count="4">0</div><div class="lab">PROJECTS BUILT</div></div>
+        <div class="stat"><div class="num" data-decimal="2.7">0</div><div class="lab">YRS OPS &amp; DATA EXP.</div></div>
+        <div class="stat"><div class="num">BCA</div><div class="lab">IN PROGRESS</div></div>
       </div>
-      <div class="barchart">
+      <div class="barchart" id="barchart">
         <div class="bar" style="height:40%"></div>
         <div class="bar" style="height:62%"></div>
         <div class="bar" style="height:50%"></div>
@@ -264,75 +378,109 @@
   </section>
 
   <!-- ABOUT -->
-  <section class="about" id="about">
+  <section class="about reveal" id="about">
     <div class="sec-head">
       <div class="sec-num">01 / ABOUT</div>
-      <div class="sec-title">Detail-oriented, dashboard-minded.</div>
+      <div class="sec-title">Code first, decisions second.</div>
     </div>
     <div class="about-grid">
       <div class="about-text">
-        <p>I'm a <strong>detail-oriented professional with 2.7 years of experience</strong> in operations management, MIS reporting, and data analysis. My core strength is turning large, messy datasets into <strong>actionable insight</strong> — through Advanced Excel, Power BI dashboards, and consistent performance tracking.</p>
-        <p>My time as a <strong>Team Leader</strong> sharpened my analytical thinking, problem-solving, and stakeholder management. I'm eager to bring that reporting expertise and business understanding to a dedicated <strong>Data Analyst</strong> role.</p>
+        <p>I'm a <strong>web developer building on a computer science foundation</strong> — HTML, CSS, JavaScript, and PHP, alongside C and C++ from my diploma coursework. I like the part of web development where a page stops being static and starts responding: a form that validates itself, a menu that knows where you are on the page, a dashboard that counts up instead of just appearing.</p>
+        <p>Alongside that, I've spent <strong>2.7 years managing operations and MIS reporting</strong> as a Team Leader — which means I've sat on the other side of the dashboards I want to build, and I know what makes one actually useful versus just decorative.</p>
       </div>
       <div class="fact-list">
         <div class="fact"><div class="k">LOCATION</div><div class="v">Mangaluru, Karnataka, India</div></div>
-        <div class="fact"><div class="k">CURRENT ROLE</div><div class="v">Team Leader — Cogent E Services</div></div>
-        <div class="fact"><div class="k">FOCUS</div><div class="v">MIS Reporting &amp; Data Analysis</div></div>
-        <div class="fact"><div class="k">LANGUAGES</div><div class="v">English · Kannada · Hindi</div></div>
+        <div class="fact"><div class="k">BUILDING WITH</div><div class="v">HTML · CSS · JavaScript · PHP</div></div>
+        <div class="fact"><div class="k">DAY JOB</div><div class="v">Team Leader — Cogent E Services</div></div>
+        <div class="fact"><div class="k">LANGUAGES SPOKEN</div><div class="v">English · Kannada · Hindi</div></div>
         <div class="fact"><div class="k">STUDYING</div><div class="v">BCA — Amity University Online</div></div>
       </div>
     </div>
   </section>
 
   <!-- SKILLS -->
-  <section class="skills" id="skills">
+  <section class="skills reveal" id="skills">
     <div class="sec-head">
       <div class="sec-num">02 / SKILLS</div>
-      <div class="sec-title">The toolkit behind the reports.</div>
-      <div class="sec-sub">From spreadsheet modeling to enterprise systems, plus the programming foundation that makes automation possible.</div>
+      <div class="sec-title">The toolkit I build with.</div>
+      <div class="sec-sub">Web development is the core focus — with a programming foundation and data/BI toolset that carries over from my day-to-day work.</div>
     </div>
 
     <div class="skill-group">
-      <div class="skill-group-label">Data &amp; Business Intelligence</div>
+      <div class="skill-group-label">Web Development</div>
       <div class="skill-grid">
-        <div class="skill-tile"><div class="skill-badge" style="background:var(--amber);">XLS</div><div class="skill-name">Advanced Excel</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#f2c94c;">PBI</div><div class="skill-name">Power BI</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:var(--teal);">DAX</div><div class="skill-name">DAX</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#9b8cf2;">MIS</div><div class="skill-name">MIS Reporting</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#f28c6c;">SAP</div><div class="skill-name">SAP</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#6cc2f2;">ERP</div><div class="skill-name">ERP Systems</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#e8a33d;">SCA</div><div class="skill-name">Supply Chain Analytics</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#4fd1c5;">BI</div><div class="skill-name">Business Intelligence</div></div>
+        <div class="skill-tile" data-level="85"><div class="skill-badge" style="background:#e8a33d;">&lt;/&gt;</div><div class="skill-name">HTML5</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+        <div class="skill-tile" data-level="80"><div class="skill-badge" style="background:#4fd1c5;">CSS</div><div class="skill-name">CSS3</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+        <div class="skill-tile" data-level="75"><div class="skill-badge" style="background:#f2c94c;">JS</div><div class="skill-name">JavaScript</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+        <div class="skill-tile" data-level="60"><div class="skill-badge" style="background:#9b8cf2;">PHP</div><div class="skill-name">PHP</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
       </div>
     </div>
 
     <div class="skill-group">
-      <div class="skill-group-label">Programming Languages</div>
+      <div class="skill-group-label">Programming Foundations</div>
       <div class="skill-grid">
-        <div class="skill-tile"><div class="skill-badge" style="background:#f2c94c;"><img src="javascript.png" alt="JavaScript" class="skill-icon"></div><div class="skill-name">JavaScript</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#8b93a1;">C</div><div class="skill-name">C</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#5b8ef2;">C++</div><div class="skill-name">C++</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#e8a33d;">&lt;/&gt;</div><div class="skill-name">HTML</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#f2c94c;">JS</div><div class="skill-name">JavaScript</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#9b8cf2;">PHP</div><div class="skill-name">PHP</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#4fd1c5;">CSS</div><div class="skill-name">CSS</div></div>
+        <div class="skill-tile" data-level="65"><div class="skill-badge" style="background:#8b93a1;">C</div><div class="skill-name">C</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+        <div class="skill-tile" data-level="65"><div class="skill-badge" style="background:#5b8ef2;">C++</div><div class="skill-name">C++</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+        <div class="skill-tile" data-level="55"><div class="skill-badge" style="background:#dedede;">C#</div><div class="skill-name">Unity Engine</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+        <div class="skill-tile" data-level="55"><div class="skill-badge" style="background:#7fdb8a;">AND</div><div class="skill-name">Android Studio</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
       </div>
     </div>
 
     <div class="skill-group">
-      <div class="skill-group-label">Software &amp; Build Tools</div>
+      <div class="skill-group-label">Data &amp; Business Tools</div>
       <div class="skill-grid">
-        <div class="skill-tile"><div class="skill-badge" style="background:#dedede;">C#</div><div class="skill-name">Unity Engine</div></div>
-        <div class="skill-tile"><div class="skill-badge" style="background:#7fdb8a;">AND</div><div class="skill-name">Android Studio</div></div>
+        <div class="skill-tile" data-level="90"><div class="skill-badge" style="background:#e8a33d;">XLS</div><div class="skill-name">Advanced Excel</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+        <div class="skill-tile" data-level="80"><div class="skill-badge" style="background:#f2c94c;">PBI</div><div class="skill-name">Power BI</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+        <div class="skill-tile" data-level="70"><div class="skill-badge" style="background:#4fd1c5;">DAX</div><div class="skill-name">DAX</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+        <div class="skill-tile" data-level="60"><div class="skill-badge" style="background:#6cc2f2;">ERP</div><div class="skill-name">SAP / ERP</div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects reveal" id="projects">
+    <div class="sec-head">
+      <div class="sec-num">03 / PROJECTS</div>
+      <div class="sec-title">Things I've actually built.</div>
+      <div class="sec-sub">Filter by type — the buttons below are wired up with real JavaScript, not just for show.</div>
+    </div>
+    <div class="filter-row" id="filterRow">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="web">Web</button>
+      <button class="filter-btn" data-filter="mobile">Mobile</button>
+      <button class="filter-btn" data-filter="game">Game Dev</button>
+      <button class="filter-btn" data-filter="data">Data / BI</button>
+    </div>
+    <div class="project-grid" id="projectGrid">
+      <div class="project-card" data-cat="web">
+        <div class="project-top"><div class="project-title">This Portfolio</div><div class="project-tag">Web</div></div>
+        <p class="project-desc">A responsive personal site built from scratch — semantic HTML5, hand-written CSS3 (no framework), and vanilla JavaScript powering the theme toggle, scroll-spy navigation, project filtering, and form validation you're using right now.</p>
+        <div class="project-stack"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
+        <div class="project-note">You're looking at it ↑</div>
+      </div>
+      <div class="project-card" data-cat="mobile">
+        <div class="project-top"><div class="project-title">Campus Mobile App</div><div class="project-tag">Mobile</div></div>
+        <p class="project-desc">Led my final-year Computer Science &amp; Engineering project at P A Polytechnic — a mobile application built with Android Studio and Firebase, covering the full build from UI to backend data sync.</p>
+        <div class="project-stack"><span>Android Studio</span><span>Java</span><span>Firebase</span></div>
+      </div>
+      <div class="project-card" data-cat="game">
+        <div class="project-top"><div class="project-title">Unity Game Module</div><div class="project-tag">Game Dev</div></div>
+        <p class="project-desc">Completed the 38-ECTS "Introduction to Video Game Creation" program at XAMK (Finland), building game mechanics and interactions in Unity Engine.</p>
+        <div class="project-stack"><span>Unity</span><span>C++</span><span>Game Design</span></div>
+      </div>
+      <div class="project-card" data-cat="data">
+        <div class="project-top"><div class="project-title">MIS &amp; Power BI Reporting</div><div class="project-tag">Data / BI</div></div>
+        <p class="project-desc">Design and maintain daily, weekly and monthly performance dashboards at Cogent E Services — Excel models and Power BI reports with DAX measures that leadership uses to make real calls.</p>
+        <div class="project-stack"><span>Power BI</span><span>DAX</span><span>Excel</span></div>
       </div>
     </div>
   </section>
 
   <!-- EXPERIENCE -->
-  <section class="experience" id="experience">
+  <section class="experience reveal" id="experience">
     <div class="sec-head">
-      <div class="sec-num">03 / EXPERIENCE</div>
-      <div class="sec-title">Where the reporting gets used.</div>
+      <div class="sec-num">04 / EXPERIENCE</div>
+      <div class="sec-title">The day job that keeps me grounded.</div>
     </div>
     <div class="timeline">
       <div class="tl-item">
@@ -340,7 +488,7 @@
         <div class="tl-date">11/2023 — PRESENT · MANGALURU, INDIA</div>
         <div class="tl-role">Team Leader</div>
         <div class="tl-org">Cogent E Services</div>
-        <p class="tl-desc">Managing inbound customer service operations, workforce coordination, and real-time performance monitoring — leading teams to hit operational targets while keeping SLA compliance and process improvement front and center.</p>
+        <p class="tl-desc">Managing inbound customer service operations, workforce coordination, and real-time performance monitoring — leading a team to hit operational targets while keeping SLA compliance and process improvement front and center.</p>
         <ul class="tl-bullets">
           <li>Led and supervised a team of customer service agents against productivity and quality targets.</li>
           <li>Prepared and maintained daily, weekly, and monthly MIS reports for performance tracking.</li>
@@ -354,10 +502,10 @@
   </section>
 
   <!-- EDUCATION -->
-  <section class="education" id="education">
+  <section class="education reveal" id="education">
     <div class="sec-head">
-      <div class="sec-num">04 / EDUCATION</div>
-      <div class="sec-title">Built on a games &amp; systems foundation.</div>
+      <div class="sec-num">05 / EDUCATION</div>
+      <div class="sec-title">Built on a systems &amp; games foundation.</div>
     </div>
     <div class="edu-grid">
       <div class="edu-card">
@@ -375,7 +523,7 @@
         <div class="edu-date">2017 — 11/2020 · MANGALURU, INDIA</div>
         <div class="edu-deg">Computer Science &amp; Engineering</div>
         <div class="edu-org">P A Polytechnic</div>
-        <div class="edu-note">Covered basic Java, C++, HTML, CSS. <b>Final-year project lead</b> — built a mobile application using Android Studio &amp; Firebase.</div>
+        <div class="edu-note">Covered core Java, C++, HTML, CSS. <b>Final-year project lead</b> — built a mobile application using Android Studio &amp; Firebase.</div>
       </div>
       <div class="edu-card">
         <div class="edu-date">06/2015 — 03/2017 · MANGALURU, INDIA</div>
@@ -387,14 +535,14 @@
   </section>
 
   <!-- EXTRAS -->
-  <section class="extras">
+  <section class="extras reveal">
     <div class="extras-grid">
       <div class="extras-card">
         <h4>Core Strengths</h4>
         <div class="pill-row">
-          <div class="pill">Creative &amp; innovative thinker</div>
-          <div class="pill">Team management &amp; leadership</div>
-          <div class="pill">Strategic problem-solving</div>
+          <div class="pill">Clean, responsive UI</div>
+          <div class="pill">Problem-solving</div>
+          <div class="pill">Team leadership</div>
           <div class="pill">AI-assisted workflows</div>
         </div>
       </div>
@@ -410,20 +558,267 @@
   </section>
 
   <!-- CONTACT -->
-  <section class="contact" id="contact">
+  <section class="contact reveal" id="contact">
     <div class="sec-head">
-      <div class="eyebrow">05 / CONTACT</div>
-      <div class="sec-title">Let's put your data to work.</div>
-      <div class="sec-sub" style="margin-left:auto;margin-right:auto;">Open to Data Analyst opportunities in and around Mangaluru, or remote.</div>
+      <div class="eyebrow">06 / CONTACT</div>
+      <div class="sec-title">Let's build something.</div>
+      <div class="sec-sub" style="margin-left:auto;margin-right:auto;">Open to Web Developer roles and freelance projects in and around Mangaluru, or remote.</div>
     </div>
-    <div class="contact-links">
-      <a href="mailto:yashwanthgatty@gmail.com"><span class="clabel">Email</span><span class="cval">yashwanthgatty@gmail.com</span></a>
-      <a href="tel:+917975111042"><span class="clabel">Phone</span><span class="cval">+91 79751 11042</span></a>
-      <a href="#"><span class="clabel">Location</span><span class="cval">Kotekar, D.K, Karnataka 575022</span></a>
+    <div class="contact-body">
+      <div class="contact-links">
+        <a href="mailto:yashwanthgatty@gmail.com"><span class="clabel">Email</span><span class="cval">yashwanthgatty@gmail.com</span></a>
+        <a href="tel:+917975111042"><span class="clabel">Phone</span><span class="cval">+91 79751 11042</span></a>
+        <a href="#"><span class="clabel">Location</span><span class="cval">Kotekar, D.K, Karnataka 575022</span></a>
+      </div>
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="field" id="nameField">
+          <label for="cname">Name</label>
+          <input type="text" id="cname" name="name" placeholder="Your name">
+          <div class="field-error" id="nameError"></div>
+        </div>
+        <div class="field" id="emailField">
+          <label for="cemail">Email</label>
+          <input type="email" id="cemail" name="email" placeholder="you@example.com">
+          <div class="field-error" id="emailError"></div>
+        </div>
+        <div class="field" id="msgField">
+          <label for="cmsg">Message</label>
+          <textarea id="cmsg" name="message" rows="4" placeholder="What are you looking to build?"></textarea>
+          <div class="field-error" id="msgError"></div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="justify-content:center;">Send message</button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
     </div>
   </section>
 
-  <footer>Designed &amp; built for <span>Yashwanth Kumar D</span> — © 2026</footer>
+  <footer>Designed &amp; built by <span>Yashwanth Kumar D</span> — © <span id="year"></span></footer>
 </div>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- Footer year ----------
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- Theme toggle ----------
+  var themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', function(){
+    document.body.classList.toggle('light');
+    var isLight = document.body.classList.contains('light');
+    themeToggle.textContent = isLight ? '☀️' : '🌙';
+  });
+
+  // ---------- Mobile menu ----------
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var open = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(function(link){
+    link.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ---------- Scroll-spy active nav link ----------
+  var navAnchors = document.querySelectorAll('[data-nav]');
+  var sections = Array.prototype.map.call(navAnchors, function(a){
+    return document.querySelector(a.getAttribute('href'));
+  }).filter(Boolean);
+
+  function setActive(id){
+    navAnchors.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+  if('IntersectionObserver' in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ setActive(entry.target.id); }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function(s){ spy.observe(s); });
+  }
+
+  // ---------- Scroll reveal ----------
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var revealObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function(el){ revealObs.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // ---------- Typing effect ----------
+  var roles = ["Web Developer.", "Frontend Builder.", "Data-minded Coder.", "Team Leader."];
+  var typedText = document.getElementById('typedText');
+  var ri = 0, ci = 0, deleting = false;
+
+  function typeTick(){
+    var current = roles[ri];
+    if(!deleting){
+      ci++;
+      typedText.textContent = current.slice(0, ci);
+      if(ci === current.length){
+        deleting = true;
+        setTimeout(typeTick, 1400);
+        return;
+      }
+    } else {
+      ci--;
+      typedText.textContent = current.slice(0, ci);
+      if(ci === 0){
+        deleting = false;
+        ri = (ri + 1) % roles.length;
+      }
+    }
+    setTimeout(typeTick, deleting ? 45 : 85);
+  }
+  typeTick();
+
+  // ---------- Animated stat counters + bar chart ----------
+  var statsAnimated = false;
+  var heroCard = document.querySelector('.dash-card');
+  function animateStats(){
+    if(statsAnimated) return;
+    statsAnimated = true;
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var cur = 0;
+      var step = Math.max(1, Math.round(target / 30));
+      var iv = setInterval(function(){
+        cur += step;
+        if(cur >= target){ cur = target; clearInterval(iv); }
+        el.textContent = cur;
+      }, 40);
+    });
+    document.querySelectorAll('[data-decimal]').forEach(function(el){
+      var target = parseFloat(el.getAttribute('data-decimal'));
+      var cur = 0;
+      var iv = setInterval(function(){
+        cur += target / 30;
+        if(cur >= target){ cur = target; clearInterval(iv); }
+        el.textContent = cur.toFixed(1);
+      }, 40);
+    });
+    document.querySelectorAll('#barchart .bar').forEach(function(bar, i){
+      setTimeout(function(){ bar.classList.add('grow'); }, i * 60);
+    });
+  }
+  if('IntersectionObserver' in window && heroCard){
+    new IntersectionObserver(function(entries, obs){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ animateStats(); obs.disconnect(); }
+      });
+    }, { threshold: 0.4 }).observe(heroCard);
+  } else {
+    animateStats();
+  }
+
+  // ---------- Skill bar fill on scroll ----------
+  var skillTiles = document.querySelectorAll('.skill-tile[data-level]');
+  if('IntersectionObserver' in window){
+    var skillObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var fill = entry.target.querySelector('.skill-bar-fill');
+          var level = entry.target.getAttribute('data-level');
+          if(fill){ fill.style.width = level + '%'; }
+          skillObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    skillTiles.forEach(function(t){ skillObs.observe(t); });
+  } else {
+    skillTiles.forEach(function(t){
+      var fill = t.querySelector('.skill-bar-fill');
+      if(fill){ fill.style.width = t.getAttribute('data-level') + '%'; }
+    });
+  }
+
+  // ---------- Project filter ----------
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var projectCards = document.querySelectorAll('.project-card');
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      filterBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.getAttribute('data-filter');
+      projectCards.forEach(function(card){
+        var show = filter === 'all' || card.getAttribute('data-cat') === filter;
+        card.classList.toggle('hide', !show);
+      });
+    });
+  });
+
+  // ---------- Contact form validation ----------
+  var form = document.getElementById('contactForm');
+  var statusEl = document.getElementById('formStatus');
+
+  function showError(fieldId, errorId, message){
+    document.getElementById(fieldId).classList.toggle('error', !!message);
+    document.getElementById(errorId).textContent = message || '';
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('cname').value.trim();
+    var email = document.getElementById('cemail').value.trim();
+    var msg = document.getElementById('cmsg').value.trim();
+    var valid = true;
+
+    if(name.length < 2){
+      showError('nameField', 'nameError', 'Please enter your name.');
+      valid = false;
+    } else { showError('nameField', 'nameError', ''); }
+
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailPattern.test(email)){
+      showError('emailField', 'emailError', 'Please enter a valid email address.');
+      valid = false;
+    } else { showError('emailField', 'emailError', ''); }
+
+    if(msg.length < 10){
+      showError('msgField', 'msgError', 'Message should be at least 10 characters.');
+      valid = false;
+    } else { showError('msgField', 'msgError', ''); }
+
+    if(!valid){
+      statusEl.textContent = '';
+      return;
+    }
+
+    var subject = encodeURIComponent('Portfolio contact from ' + name);
+    var body = encodeURIComponent(msg + '\n\n— ' + name + ' (' + email + ')');
+    statusEl.textContent = 'Opening your email client to send this…';
+    window.location.href = 'mailto:yashwanthgatty@gmail.com?subject=' + subject + '&body=' + body;
+  });
+
+  // ---------- Back to top ----------
+  var toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', function(){
+    toTop.classList.toggle('show', window.scrollY > 480);
+  }, { passive: true });
+  toTop.addEventListener('click', function(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+})();
+</script>
 </body>
 </html>
